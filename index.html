@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>反省アンケート入力</title>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    textarea {
+      height: 120px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #0078d7;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>反省アンケート入力</h2>
+
+  <label>組番号（半角数字）</label>
+  <input type="text" id="groupNum" placeholder="例：1〜18">
+
+  <label>① 安否確認について</label>
+  <textarea id="anpi"></textarea>
+
+  <label>② 避難訓練について</label>
+  <textarea id="hinan"></textarea>
+
+  <label>③ クリーンキャンペーンについて</label>
+  <textarea id="clean"></textarea>
+
+  <button id="sendBtn">送信</button>
+
+  <p id="msg"></p>
+
+  <script>
+    async function main() {
+      await liff.init({ liffId: "YOUR_LIFF_ID" });
+      document.getElementById("msg").textContent = "LIFF 初期化完了しました。";
+    }
+    main();
+  </script>
+</body>
+</html>
