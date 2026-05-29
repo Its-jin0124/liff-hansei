@@ -12,25 +12,22 @@
       line-height: 1.6;
     }
 
-    /* タイトル下の説明文（項目名より大きめ） */
     #subtitle {
       font-size: 20px;
       font-weight: bold;
       margin-bottom: 20px;
-      white-space: pre-line; /* 改行をそのまま反映 */
+      white-space: pre-line;
     }
 
-    /* 組番号は1/4の幅 */
     #groupNum {
       width: 25%;
       padding: 10px;
       margin-bottom: 15px;
       font-size: 16px;
       box-sizing: border-box;
-      display: block; /* 横並び防止 */
+      display: block;
     }
 
-    /* テキストエリアは全幅 */
     textarea {
       width: 100%;
       height: 120px;
@@ -40,7 +37,6 @@
       box-sizing: border-box;
     }
 
-    /* 送信ボタンは1/5の幅 */
     #sendBtn {
       width: 20%;
       padding: 12px;
@@ -51,12 +47,51 @@
       font-size: 18px;
       cursor: pointer;
     }
+
+    /* 確認ボタン（小さめ） */
+    .checkBtn {
+      font-size: 12px;
+      padding: 4px 8px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    /* ダイアログ（モーダル） */
+    #modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    #modalContent {
+      background: white;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 8px;
+      white-space: pre-line;
+    }
+
+    #closeBtn {
+      margin-top: 20px;
+      padding: 8px 16px;
+      background: #555;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- 追加した説明文 -->
   <div id="subtitle">
 　クリーンキャンペーン・安否確認訓練の実施後の反省等のついて
 以下の通り、気になる点、改善すべき点、良かった点等を記入
@@ -66,24 +101,51 @@
   <label>組番号（半角数字）</label><br>
   <input type="text" id="groupNum" placeholder="例：1〜18">
 
-  <label>① 安否確認について</label>
+  <label>① 安否確認について
+    <button class="checkBtn" onclick="openModal('① 安否確認について', 'anpi')">確認</button>
+  </label>
   <textarea id="anpi"></textarea>
 
-  <label>② 避難訓練について</label>
+  <label>② 避難訓練について
+    <button class="checkBtn" onclick="openModal('② 避難訓練について', 'hinan')">確認</button>
+  </label>
   <textarea id="hinan"></textarea>
 
-  <label>③ クリーンキャンペーンについて</label>
+  <label>③ クリーンキャンペーンについて
+    <button class="checkBtn" onclick="openModal('③ クリーンキャンペーンについて', 'clean')">確認</button>
+  </label>
   <textarea id="clean"></textarea>
 
   <br>
   <button id="sendBtn">送信</button>
 
+  <!-- ダイアログ -->
+  <div id="modal">
+    <div id="modalContent">
+      <h3 id="modalTitle"></h3>
+      <div id="modalText"></div>
+      <button id="closeBtn" onclick="closeModal()">閉じる</button>
+    </div>
+  </div>
+
   <script>
     async function main() {
       await liff.init({ liffId: "2010107820-5EQJ0xX7" });
-      // 開発用メッセージは削除済み
     }
     main();
+
+    function openModal(title, textareaId) {
+      document.getElementById("modalTitle").textContent = title;
+      document.getElementById("modalText").textContent =
+        document.getElementById(textareaId).value;
+
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
   </script>
+
 </body>
 </html>
