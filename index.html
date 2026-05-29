@@ -12,6 +12,7 @@
       line-height: 1.6;
     }
 
+    /* タイトル下の説明文（項目名より大きめ） */
     #subtitle {
       font-size: 20px;
       font-weight: bold;
@@ -19,6 +20,7 @@
       white-space: pre-line;
     }
 
+    /* 組番号は1/4の幅 */
     #groupNum {
       width: 25%;
       padding: 10px;
@@ -28,6 +30,7 @@
       display: block;
     }
 
+    /* テキストエリアは全幅 */
     textarea {
       width: 100%;
       height: 120px;
@@ -37,6 +40,7 @@
       box-sizing: border-box;
     }
 
+    /* 送信ボタンは1/5の幅 */
     #sendBtn {
       width: 20%;
       padding: 12px;
@@ -66,86 +70,5 @@
       height: 100%;
       background: rgba(0,0,0,0.6);
       justify-content: center;
-      align-items: center;
-    }
-
-    #modalContent {
-      background: white;
-      padding: 20px;
-      width: 90%;
-      max-width: 500px;
-      border-radius: 8px;
-      white-space: pre-line;
-    }
-
-    #closeBtn {
-      margin-top: 20px;
-      padding: 8px 16px;
-      background: #555;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-  </style>
-</head>
-
-<body>
-
-  <div id="subtitle">
-　クリーンキャンペーン・安否確認訓練の実施後の反省等のついて
-以下の通り、気になる点、改善すべき点、良かった点等を記入
-ください。お手数ですが、6/14までにアクセスし、ご入力下さい。
-  </div>
-
-  <label>組番号（半角数字）</label><br>
-  <input type="text" id="groupNum" placeholder="例：1〜18">
-
-  <label>① 安否確認について
-    <button class="checkBtn" onclick="openModal('① 安否確認について', 'anpi')">確認</button>
-  </label>
-  <textarea id="anpi"></textarea>
-
-  <label>② 避難訓練について
-    <button class="checkBtn" onclick="openModal('② 避難訓練について', 'hinan')">確認</button>
-  </label>
-  <textarea id="hinan"></textarea>
-
-  <label>③ クリーンキャンペーンについて
-    <button class="checkBtn" onclick="openModal('③ クリーンキャンペーンについて', 'clean')">確認</button>
-  </label>
-  <textarea id="clean"></textarea>
-
-  <br>
-  <button id="sendBtn">送信</button>
-
-  <!-- ダイアログ -->
-  <div id="modal">
-    <div id="modalContent">
-      <h3 id="modalTitle"></h3>
-      <div id="modalText"></div>
-      <button id="closeBtn" onclick="closeModal()">閉じる</button>
-    </div>
-  </div>
-
-  <script>
-    async function main() {
-      await liff.init({ liffId: "2010107820-5EQJ0xX7" });
-    }
-    main();
-
-    function openModal(title, textareaId) {
-      document.getElementById("modalTitle").textContent = title;
-      document.getElementById("modalText").textContent =
-        document.getElementById(textareaId).value;
-
-      document.getElementById("modal").style.display = "flex";
-    }
-
-    function closeModal() {
-      document.getElementById("modal").style.display = "none";
-    }
-  </script>
-
-</body>
-</html>
+      align-items: flex-start;
+      padding-top: 40
