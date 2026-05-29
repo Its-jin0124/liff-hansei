@@ -36,17 +36,17 @@ document.getElementById("sendBtn").addEventListener("click", () => {
   anpi  = wrapText(anpi);
   hinan = wrapText(hinan);
   clean = wrapText(clean);
-
-  fetch(GAS_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      sheetName: kumi,
-      anpi:  anpi,
-      hinan: hinan,
-      clean: clean
-    })
+fetch(GAS_URL, {
+  method: "POST",
+  headers: { "Content-Type": "text/plain" }, // ← application/json ではなく text/plain
+  body: JSON.stringify({
+    sheetName: kumi,
+    anpi:  anpi,
+    hinan: hinan,
+    clean: clean
   })
+})
+
   .then(res => res.json())
   .then(json => {
     if (json.status === "success") {
