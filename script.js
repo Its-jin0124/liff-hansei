@@ -1,4 +1,4 @@
-const GAS_URL = "★あなたのGASのexec URLを入れる★";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbxs146Kn697zN4MccHlZrsmL0scu6KIbmivQYsunLXKH0T7jBwp6KO1c17IL2dTGFP0/exec";
 
 // 全角70文字ごとに改行する関数
 function wrapText(text, maxLen = 70) {
