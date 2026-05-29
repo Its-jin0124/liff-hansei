@@ -11,24 +11,41 @@
       margin: 20px;
       line-height: 1.6;
     }
-    input, textarea {
-      width: 100%;
+
+    /* 組番号は1/4の幅 */
+    #groupNum {
+      width: 25%;
       padding: 10px;
       margin-bottom: 15px;
       font-size: 16px;
       box-sizing: border-box;
     }
+
+    /* テキストエリアは全幅 */
     textarea {
-      height: 120px;
-    }
-    button {
       width: 100%;
+      height: 120px;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    /* 送信ボタンは1/5の幅 */
+    #sendBtn {
+      width: 20%;
       padding: 12px;
       background-color: #0078d7;
       color: white;
       border: none;
       border-radius: 6px;
       font-size: 18px;
+      cursor: pointer;
+    }
+
+    #msg {
+      margin-top: 10px;
+      color: green;
     }
   </style>
 </head>
@@ -36,7 +53,7 @@
 <body>
   <h2>反省アンケート入力</h2>
 
-  <label>組番号（半角数字）</label>
+  <label>組番号（半角数字）</label><br>
   <input type="text" id="groupNum" placeholder="例：1〜18">
 
   <label>① 安否確認について</label>
@@ -48,13 +65,13 @@
   <label>③ クリーンキャンペーンについて</label>
   <textarea id="clean"></textarea>
 
+  <br>
   <button id="sendBtn">送信</button>
 
   <p id="msg"></p>
 
   <script>
     async function main() {
-
       await liff.init({ liffId: "2010107820-5EQJ0xX7" });
       document.getElementById("msg").textContent = "LIFF 初期化完了しました。";
     }
