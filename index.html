@@ -134,10 +134,13 @@
       <button id="closeBtn" onclick="closeModal()">閉じる</button>
     </div>
   </div>
-
   <script>
     async function main() {
-      await liff.init({ liffId: "2010107820-5EQJ0xX7" });
+      try {
+        await liff.init({ liffId: "2010107820-5EQJ0xX7" });
+      } catch (e) {
+        console.log("LIFF初期化エラー（PCまたはブラウザ表示）");
+      }
     }
     main();
 
@@ -154,5 +157,9 @@
     }
   </script>
 
+  <!-- ★★★ これを必ず追加 ★★★ -->
+  <script src="script.js"></script>
+
 </body>
 </html>
+
