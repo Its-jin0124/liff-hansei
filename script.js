@@ -18,13 +18,6 @@ function wrapText(text, maxLen = 70) {
 }
 
 // ------------------------------
-// 読み込んだデータを保持する変数
-// ------------------------------
-let loadedAnpi = "";
-let loadedHinan = "";
-let loadedClean = "";
-
-// ------------------------------
 // 組番号入力 → 自動読み込み
 // ------------------------------
 document.getElementById("groupNum").addEventListener("change", () => {
@@ -37,39 +30,13 @@ document.getElementById("groupNum").addEventListener("change", () => {
     .then(res => res.json())
     .then(json => {
       if (json.status === "success") {
-
-        // 読み込んだデータを保持
-        loadedAnpi  = json.anpi  || "";
-        loadedHinan = json.hinan || "";
-        loadedClean = json.clean || "";
-
-        // 画面に反映
-        document.getElementById("anpi").value  = loadedAnpi;
-        document.getElementById("hinan").value = loadedHinan;
-        document.getElementById("clean").value = loadedClean;
+        document.getElementById("anpi").value  = json.anpi  || "";
+        document.getElementById("hinan").value = json.hinan || "";
+        document.getElementById("clean").value = json.clean || "";
       }
     })
     .catch(err => console.error("読み込みエラー:", err));
 });
-
-// ------------------------------
-// 送信中ダイアログ表示
-// ------------------------------
-function showSendingDialog() {
-  const modal = document.getElementById("modal");
-  const modalTitle = document.getElementById("modalTitle");
-  const modalText = document.getElementById("modalText");
-
-  modalTitle.textContent = "送信中です";
-  modalText.textContent = "少しお待ちください…";
-
-  modal.style.display = "flex";
-}
-
-// 送信中ダイアログを閉じる
-function hideSendingDialog() {
-  document.getElementById("modal").style.display = "none";
-}
 
 // ------------------------------
 // 送信処理
@@ -88,22 +55,17 @@ document.getElementById("sendBtn").addEventListener("click", () => {
   let hinan = document.getElementById("hinan").value;
   let clean = document.getElementById("clean").value;
 
-  // ------------------------------
-  // 上書き確認（読み込んだデータが空でない場合のみ）
-  // ------------------------------
-  const hasLoadedData =
-    (loadedAnpi !== "") ||
-    (loadedHinan !== "") ||
-    (loadedClean !== "");
-
-  if (hasLoadedData) {
+  // 既存データがある場合 → 上書き確認
+  if (anpi || hinan || clean) {
     if (!confirm("既存の内容があります。上書きしますか？")) {
       return;
     }
   }
 
-  // 送信中ダイアログ表示
-  showSendingDialog();
+  // 送信中表示
+  const sendBtn = document.getElementById("sendBtn");
+  sendBtn.disabled = true;
+  sendBtn.textContent = "送信中です…";
 
   // 自動改行
   anpi  = wrapText(anpi);
@@ -120,8 +82,6 @@ document.getElementById("sendBtn").addEventListener("click", () => {
   fetch(url)
     .then(res => res.json())
     .then(json => {
-      hideSendingDialog();
-
       if (json.status === "success") {
         alert("送信しました！");
       } else {
@@ -129,8 +89,11 @@ document.getElementById("sendBtn").addEventListener("click", () => {
       }
     })
     .catch(err => {
-      hideSendingDialog();
       console.error(err);
       alert("送信に失敗しました");
+    })
+    .finally(() => {
+      sendBtn.disabled = false;
+      sendBtn.textContent = "送信";
     });
 });
