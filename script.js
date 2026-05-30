@@ -1,4 +1,4 @@
-const GAS_URL = "https://script.google.com/macros/s/AKfycbzhDMFL32HYw65-S9FjEf1dvIZLpPytqosDglErRciFeKpAh8QfRkqcszOA7J0GcLIT/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbwYGuYl2B5tr062Q0XsPK4L4lYafT6QPuuusd8Tz9SqKXU0IsOpK2VDyHFZk0IwMX2G/exec";
 
 // 全角70文字ごとに改行
 function wrapText(text, maxLen = 70) {
