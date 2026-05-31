@@ -12,7 +12,6 @@
       line-height: 1.6;
     }
 
-    /* タイトル下の説明文（項目名より大きめ） */
     #subtitle {
       font-size: 20px;
       font-weight: bold;
@@ -20,7 +19,6 @@
       white-space: pre-line;
     }
 
-    /* 組番号は1/4の幅 */
     #groupNum {
       width: 25%;
       padding: 10px;
@@ -30,7 +28,6 @@
       display: block;
     }
 
-    /* テキストエリアは全幅 */
     textarea {
       width: 100%;
       height: 120px;
@@ -40,7 +37,6 @@
       box-sizing: border-box;
     }
 
-    /* 送信ボタンは1/5の幅 */
     #sendBtn {
       width: 20%;
       padding: 12px;
@@ -52,7 +48,6 @@
       cursor: pointer;
     }
 
-    /* 確認ボタン（小さめ） */
     .checkBtn {
       font-size: 12px;
       padding: 4px 8px;
@@ -60,7 +55,6 @@
       cursor: pointer;
     }
 
-    /* ダイアログ（モーダル） */
     #modal {
       display: none;
       position: fixed;
@@ -74,7 +68,6 @@
       padding-top: 40px;
     }
 
-    /* 入力枠と同じ幅に調整済み */
     #modalContent {
       background: white;
       padding: 20px;
@@ -94,6 +87,16 @@
       border-radius: 6px;
       cursor: pointer;
     }
+
+    /* ★ 追加：上書き確認モーダルの OK ボタン */
+    #overwriteOkBtn {
+      padding: 8px 16px;
+      background: #0078d7;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -108,18 +111,13 @@
   <label>組番号（半角数字）</label><br>
   <input type="text" id="groupNum" placeholder="例：1〜18">
 
-  <label>① 安否確認について
-    <button class="checkBtn" onclick="openModal('① 安否確認について', 'anpi')">確認</button>
+  <label>① 安否確認・避難訓練について
+    <button class="checkBtn" onclick="openModal('① 安否確認・避難訓練について', 'anpi')">確認</button>
   </label>
   <textarea id="anpi"></textarea>
 
-  <label>② 避難訓練について
-    <button class="checkBtn" onclick="openModal('② 避難訓練について', 'hinan')">確認</button>
-  </label>
-  <textarea id="hinan"></textarea>
-
-  <label>③ クリーンキャンペーンについて
-    <button class="checkBtn" onclick="openModal('③ クリーンキャンペーンについて', 'clean')">確認</button>
+  <label>② クリーンキャンペーンについて
+    <button class="checkBtn" onclick="openModal('② クリーンキャンペーンについて', 'clean')">確認</button>
   </label>
   <textarea id="clean"></textarea>
 
@@ -134,6 +132,7 @@
       <button id="closeBtn" onclick="closeModal()">閉じる</button>
     </div>
   </div>
+
   <script>
     async function main() {
       try {
@@ -157,9 +156,7 @@
     }
   </script>
 
-  <!-- ★★★ これを必ず追加 ★★★ -->
   <script src="script.js"></script>
 
 </body>
 </html>
-

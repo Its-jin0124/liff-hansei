@@ -1,6 +1,7 @@
 window.addEventListener("DOMContentLoaded", () => {
 
-  const GAS_URL = "https://script.google.com/macros/s/AKfycbwYGuYl2B5tr062Q0XsPK4L4lYafT6QPuuusd8Tz9SqKXU0IsOpK2VDyHFZk0IwMX2G/exec";
+  // ★ デプロイ後の /exec URL をここに貼る
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbxvw-jlt-CIqwE8u9HcIbffk97kq5kyKIv6-Y_Vf2-_V3JDCQd6zfwAsmEqKRCoWBf5/exec";
 
   // 全角70文字ごとに改行
   function wrapText(text, maxLen = 70) {
@@ -19,9 +20,8 @@ window.addEventListener("DOMContentLoaded", () => {
     return result.join("\n");
   }
 
-  // 読み込んだ元データを保持
+  // 読み込んだ元データを保持（2項目）
   let loadedAnpi  = "";
-  let loadedHinan = "";
   let loadedClean = "";
 
   // ------------------------------
@@ -40,12 +40,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
           // 読み込んだ元データを記憶
           loadedAnpi  = json.anpi  || "";
-          loadedHinan = json.hinan || "";
           loadedClean = json.clean || "";
 
           // 画面に反映
           document.getElementById("anpi").value  = loadedAnpi;
-          document.getElementById("hinan").value = loadedHinan;
           document.getElementById("clean").value = loadedClean;
         }
       })
@@ -71,7 +69,46 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   // ------------------------------
-  // 送信処理（GET）
+  // 上書き確認モーダル
+  // ------------------------------
+  function showOverwriteDialog(onOK) {
+    const modal = document.getElementById("modal");
+    const title = document.getElementById("modalTitle");
+    const text  = document.getElementById("modalText");
+
+    title.textContent = "確認";
+    text.textContent = "既存の内容があります。上書きしますか？";
+
+    const closeBtn = document.getElementById("closeBtn");
+    closeBtn.textContent = "キャンセル";
+
+    // 既存の OK ボタンが残らないように削除
+    const oldOk = document.getElementById("overwriteOkBtn");
+    if (oldOk) oldOk.remove();
+
+    // OK ボタン追加
+    const okBtn = document.createElement("button");
+    okBtn.id = "overwriteOkBtn";
+    okBtn.textContent = "OK";
+    okBtn.style.marginLeft = "10px";
+    okBtn.style.padding = "8px 16px";
+    okBtn.style.background = "#0078d7";
+    okBtn.style.color = "white";
+    okBtn.style.border = "none";
+    okBtn.style.borderRadius = "6px";
+    okBtn.onclick = () => {
+      modal.style.display = "none";
+      okBtn.remove();
+      onOK();
+    };
+
+    closeBtn.insertAdjacentElement("afterend", okBtn);
+
+    modal.style.display = "flex";
+  }
+
+  // ------------------------------
+  // 送信ボタン
   // ------------------------------
   document.getElementById("sendBtn").addEventListener("click", () => {
 
@@ -84,43 +121,40 @@ window.addEventListener("DOMContentLoaded", () => {
 
     // 現在の入力内容
     let anpi  = document.getElementById("anpi").value;
-    let hinan = document.getElementById("hinan").value;
     let clean = document.getElementById("clean").value;
 
-    // ------------------------------
-    // 差分判定（元データと現在の入力を比較）
-    // ------------------------------
+    // 差分判定
     const changed =
       (anpi  !== loadedAnpi) ||
-      (hinan !== loadedHinan) ||
       (clean !== loadedClean);
 
-    // 元データが空（初回入力）なら確認不要
+    // 元データが空でなければ確認
     const hasLoadedData =
       (loadedAnpi !== "") ||
-      (loadedHinan !== "") ||
       (loadedClean !== "");
 
-    // 元データがあり、かつ変更があった場合のみ確認
     if (hasLoadedData && changed) {
-      if (!confirm("既存の内容があります。上書きしますか？")) {
-        return;
-      }
+      showOverwriteDialog(() => sendData(kumi, anpi, clean));
+      return;
     }
 
-    // 送信中ダイアログ表示
+    sendData(kumi, anpi, clean);
+  });
+
+  // ------------------------------
+  // 実際の送信処理
+  // ------------------------------
+  function sendData(kumi, anpi, clean) {
+
     showSendingDialog();
 
     // 自動改行
     anpi  = wrapText(anpi);
-    hinan = wrapText(hinan);
     clean = wrapText(clean);
 
-    // GET 送信
     const url =
       `${GAS_URL}?kumi=${encodeURIComponent(kumi)}` +
       `&anpi=${encodeURIComponent(anpi)}` +
-      `&hinan=${encodeURIComponent(hinan)}` +
       `&clean=${encodeURIComponent(clean)}`;
 
     fetch(url)
@@ -139,6 +173,6 @@ window.addEventListener("DOMContentLoaded", () => {
         console.error(err);
         alert("送信に失敗しました");
       });
-  });
+  }
 
 });
