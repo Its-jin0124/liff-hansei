@@ -2,164 +2,25 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>ご記入のお願い</title>
-  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-
+  <title>未公開</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
-      font-family: sans-serif;
-      margin: 20px;
-      line-height: 1.6;
-    }
-
-    #subtitle {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      white-space: pre-line;
-    }
-
-    #groupNum {
-      width: 25%;
-      padding: 10px;
-      margin-bottom: 15px;
-      font-size: 16px;
-      box-sizing: border-box;
-      display: block;
-    }
-
-    textarea {
-      width: 100%;
-      height: 240px;
-      padding: 10px;
-      margin-bottom: 15px;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
-
-    #sendBtn {
-      width: 20%;
-      padding: 12px;
-      background-color: #0078d7;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 18px;
-      cursor: pointer;
-    }
-
-    .checkBtn {
-      font-size: 12px;
-      padding: 4px 8px;
-      margin-left: 10px;
-      cursor: pointer;
-    }
-
-    #modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      display: flex;
       justify-content: center;
-      align-items: flex-start;
-      padding-top: 40px;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f5f5f5;
     }
-
-    #modalContent {
-      background: white;
-      padding: 20px;
-      width: 100%;
-      max-width: none;
-      border-radius: 8px;
-      white-space: pre-line;
-      box-sizing: border-box;
-    }
-
-    #closeBtn {
-      margin-top: 20px;
-      padding: 8px 16px;
-      background: #555;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    /* ★ 追加：上書き確認モーダルの OK ボタン */
-    #overwriteOkBtn {
-      padding: 8px 16px;
-      background: #0078d7;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+    .message {
+      font-size: 2rem;
+      color: #555;
     }
   </style>
 </head>
-
 <body>
-
-  <div id="subtitle">
-　クリーンキャンペーン・安否確認訓練の実施後の反省等のついて
-以下の通り、気になる点、改善すべき点、良かった点等を記入
-ください。お手数ですが、6/18までにアクセスし、ご入力下さい。
-※組番号の入力は便宜上、入力枠を設けるだけのものです。
-　入力された方を把握する為のものではありません。
-防犯・防災委員　坂口
-  </div>
-
-  <label>組番号（半角数字）</label><br>
-  <input type="text" id="groupNum" placeholder="例：1〜18">
-
-  <label>① 安否確認・避難訓練について
-    <button class="checkBtn" onclick="openModal('① 安否確認・避難訓練について', 'anpi')">確認</button>
-  </label>
-  <textarea id="anpi"></textarea>
-
-  <label>② クリーンキャンペーンについて
-    <button class="checkBtn" onclick="openModal('② クリーンキャンペーンについて', 'clean')">確認</button>
-  </label>
-  <textarea id="clean"></textarea>
-
-  <br>
-  <button id="sendBtn">送信</button>
-
-  <!-- ダイアログ -->
-  <div id="modal">
-    <div id="modalContent">
-      <h3 id="modalTitle"></h3>
-      <div id="modalText"></div>
-      <button id="closeBtn" onclick="closeModal()">閉じる</button>
-    </div>
-  </div>
-
-  <script>
-    async function main() {
-      try {
-        await liff.init({ liffId: "2010107820-5EQJ0xX7" });
-      } catch (e) {
-        console.log("LIFF初期化エラー（PCまたはブラウザ表示）");
-      }
-    }
-    main();
-
-    function openModal(title, textareaId) {
-      document.getElementById("modalTitle").textContent = title;
-      document.getElementById("modalText").textContent =
-        document.getElementById(textareaId).value;
-
-      document.getElementById("modal").style.display = "flex";
-    }
-
-    function closeModal() {
-      document.getElementById("modal").style.display = "none";
-    }
-  </script>
-
-  <script src="script.js"></script>
-
+  <div class="message">未公開</div>
 </body>
 </html>
