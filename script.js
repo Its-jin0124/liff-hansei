@@ -25,11 +25,15 @@ window.addEventListener("DOMContentLoaded", () => {
   let loadedClean = "";
 
   // ------------------------------
-  // 組番号入力 → 自動読み込み
+  // ★ 読込ボタン（新規追加）
   // ------------------------------
-  document.getElementById("groupNum").addEventListener("change", () => {
+  document.getElementById("loadBtn").addEventListener("click", () => {
     const kumi = document.getElementById("groupNum").value.trim();
-    if (!kumi || isNaN(kumi) || kumi < 1 || kumi > 18) return;
+
+    if (!kumi || isNaN(kumi) || kumi < 1 || kumi > 18) {
+      alert("組番号は 1〜18 の半角数字で入力してください");
+      return;
+    }
 
     const url = `${GAS_URL}?mode=read&kumi=${encodeURIComponent(kumi)}`;
 
@@ -45,9 +49,16 @@ window.addEventListener("DOMContentLoaded", () => {
           // 画面に反映
           document.getElementById("anpi").value  = loadedAnpi;
           document.getElementById("clean").value = loadedClean;
+
+          alert("前回の入力内容を読み込みました");
+        } else {
+          alert("読み込みエラー: " + json.message);
         }
       })
-      .catch(err => console.error("読み込みエラー:", err));
+      .catch(err => {
+        console.error("読み込みエラー:", err);
+        alert("通信エラーが発生しました");
+      });
   });
 
   // ------------------------------

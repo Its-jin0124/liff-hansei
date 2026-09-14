@@ -115,10 +115,19 @@
 　下さい。
 防犯・防災委員　坂口
   </div>
-
-  <label>組番号（半角数字）</label><br>
-  <input type="text" id="groupNum" placeholder="例：1〜18"
-
+<label>組番号（半角数字）</label><br>
+<div style="display:flex; gap:10px; align-items:center;">
+  <input type="text" id="groupNum" placeholder="例：1〜18" style="width:25%; padding:10px;">
+  <button id="loadBtn" style="
+      padding:10px 16px;
+      background:#28a745;
+      color:white;
+      border:none;
+      border-radius:6px;
+      font-size:16px;
+      cursor:pointer;
+  ">読込</button>
+</div>
   <label>① 役員としての役割、流れ、実施方法等
     <button class="checkBtn" onclick="openModal('① 役員としての役割、流れ、実施方法等', 'anpi')">確認</button>
   </label>
